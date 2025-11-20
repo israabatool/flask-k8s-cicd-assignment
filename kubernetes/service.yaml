@@ -3,9 +3,10 @@ kind: Service
 metadata:
   name: flask-service
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: flask
   ports:
-  - port: 5000
-    targetPort: 5000
+    - port: 5000          # Container port exposed by Flask
+      targetPort: 5000    # Port your Flask app listens on
+      nodePort: 30007     # NodePort for external access (choose 30000-32767)
