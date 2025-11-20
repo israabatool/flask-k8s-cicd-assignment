@@ -1,5 +1,4 @@
-
-// Windows pipeline update test
+// Windows pipeline update
 pipeline {
     agent any
 
@@ -13,7 +12,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image..."
-                    sh "docker build -t ${IMAGE_NAME} ."
+                    bat "docker build -t %IMAGE_NAME% ."
                 }
             }
         }
@@ -22,8 +21,8 @@ pipeline {
             steps {
                 script {
                     echo "Applying Kubernetes manifests..."
-                    sh "kubectl apply -f kubernetes/deployment.yaml"
-                    sh "kubectl apply -f kubernetes/service.yaml"
+                    bat "kubectl apply -f kubernetes\\deployment.yaml"
+                    bat "kubectl apply -f kubernetes\\service.yaml"
                 }
             }
         }
@@ -32,9 +31,9 @@ pipeline {
             steps {
                 script {
                     echo "Verifying rollout status..."
-                    sh "kubectl rollout status deployment/flask-app"
-                    sh "kubectl get pods"
-                    sh "kubectl get services"
+                    bat "kubectl rollout status deployment/flask-app"
+                    bat "kubectl get pods"
+                    bat "kubectl get services"
                 }
             }
         }
